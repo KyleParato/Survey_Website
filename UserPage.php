@@ -8,7 +8,7 @@ if(!$conn) {
 } else {
  //  echo 'Successfully connected';
 // header("Location: Question.php?id=$user_id&name=$user_name");
-header('Location: Question.php');
+//header('Location: Question.php');
 
 
 
@@ -30,6 +30,27 @@ if (isset($_POST['submit'])) {
     // Execute query
     if(mysqli_query($conn, $sql)) {
         echo "Survey created successfully!";
+
+
+
+        $sql = "SELECT * FROM Survey WHERE  SurveyCode = '$surveyCode'";
+        $result = mysqli_query($conn, $sql);
+        $Survey_Name_Code = mysqli_fetch_assoc($result);
+ 
+     
+        $survey_id = $Survey_Name_Code['SurveyID'];
+        // Redirect to a new page with the user ID and name as parameters
+        //header("Location: UserPage.php?id=$user_id&name=$user_name");
+        if ($surveyName == $Survey_Name_Code['SurveyName']) {
+ 
+         header("Location: Question.php?id=$survey_id");
+ 
+        }
+
+
+
+
+
 
     } else {
         echo 'Query error: ' . mysqli_error($conn);
