@@ -28,8 +28,42 @@ if (isset($_POST['submit'])) {
     if(mysqli_query($conn, $sql)) {
         echo "Question created successfully!";
 
+        $questionID = mysqli_insert_id($conn);
+
+        $sql = "SELECT * FROM Question WHERE  QuestionName = '$questionName'";
+        $result = mysqli_query($conn, $sql);
+        $Question_Id_type = mysqli_fetch_assoc($result);
+ 
+     
+        $Question_Id = $Question_Id_type['QuestionID'];
+        $Question_type =  $Question_Id_type['Typee'];
+        $QuestionName =  $Question_Id_type['QuestionName'];
+                      // Redirect to a new page with the user ID and name as parameters
+                     //header("Location: UserPage.php?id=$user_id&name=$user_name");
+        if ($type == $Question_Id_type['Typee']) {
+ 
+         header("Location: AnswerOption.php?id=$Question_Id&type=$Question_type&question=$QuestionName");
+        // header("Location: AnswerOption.php?id=$questionID");
+
+ 
+        }
+
+
+
+
+
+
+
+
         // Redirect to a new page that displays the questions for the survey
-        header("Location: Question.php?id=$surveyID");
+      //  header("Location: AnswerOption.php?id=$surveyID");
+
+
+
+
+
+
+
 
     } else {
         echo 'Query error: ' . mysqli_error($conn);
@@ -49,7 +83,7 @@ if (isset($_POST['submit'])) {
         <input type="text" name="QuestionName">
         <label>Description</label>
         <input type="text" name="Description">
-        <label>Type</label>
+        <label>Type 1 = true or false  || Type 2 = optional || Type 3 = fill up</label>
         <input type="text" name="Type">
         <div class="center">
             <input type="submit" name="submit" value="Create">
