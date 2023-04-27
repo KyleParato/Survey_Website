@@ -15,6 +15,7 @@ if(!$conn) {
 }
 
 $userID = $_GET['id'];
+echo  $userID;
 
 if (isset($_POST['Lognin'])) {
 
@@ -51,8 +52,9 @@ if (isset($_POST['submit'])) {
         //header("Location: UserPage.php?id=$user_id&name=$user_name");
         if ($surveyName == $Survey_Name_Code['SurveyName']) {
  
-         header("Location: Question.php?id=$survey_id");
+         header("Location: Question.php?id=$survey_id&user_id=$userID");
  
+      
         }
 
 
