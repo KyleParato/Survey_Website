@@ -14,6 +14,13 @@ if(!$conn) {
 
 }
 
+
+if (isset($_POST['Lognin'])) {
+
+    header("Location: AllSurvey.php?id=$survey_id");
+
+}
+
 if (isset($_POST['submit'])) {
     $surveyName = mysqli_real_escape_string($conn, $_POST["SurveyName"]); 
     $surveyCode = mysqli_real_escape_string($conn, $_POST["SurveyCode"]); 

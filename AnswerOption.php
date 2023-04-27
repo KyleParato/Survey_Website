@@ -1,52 +1,41 @@
+<?php
+$conn = mysqli_connect('localhost', 'shaun', '1234', 'survey');
 
-<?php 
+if (!$conn) {
+  echo 'Connection error: ' . mysqli_connect_error();
+} 
 
-$surveyID = $_GET['id'];
-$surveytype = $_GET['type'];
+if (isset($_POST['submit'])) {
+  $questionId = $_POST['questionId'];
+  $optionName = $_POST['optionName'];
+  $optionName2 = $_POST['optionName2']; // fixed typo
+
+  $sql = "INSERT INTO AnswerOption (OptionName, QuestionID) VALUES ('$optionName', $questionId), ('$optionName2', $questionId)";
+
+  if (mysqli_query($conn, $sql)) {
+    echo "Data inserted successfully";
+   // header("Location: Question.php");
+  } else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+  }
+}
+
+$questionId = $_GET['id'];
+$questionType = $_GET['type'];
 $question = $_GET['question'];
 
-if($surveytype  == 1) {
-    ?>
-    <form method="post" action="AnswerOption.php">
-        <h1><?php echo $question; ?></h1>
-        <h3>"True || False"</h3>
-
-        <input type="submit" value="Submit">
-    </form>
-    <?php
-}
-else if($surveytype  == 2){
-    ?>
-  <form method="post" action="AnswerOption.php">
-  <h1><?php echo $question; ?></h1>
-  <label for="answer1">Answer 1:</label>
-  <input type="text" name="comments1" id="answer1"><br>
-  <label for="answer2">Answer 2:</label>
-  <input type="text" name="comments2" id="answer2"><br>
-  <label for="answer3">Answer 3:</label>
-  <input type="text" name="comments3" id="answer3"><br>
-  <label for="answer4">Answer 4:</label>
-  <input type="text" name="comments4" id="answer4"><br>
-  <br>
-  <input type="submit" value="Submit">
-</form>
-
-
-
-    <?php
-}
-else if($surveytype == 3 ) {
-    ?>
-    <form method="post" action="AnswerOption.php">
-    <h1><?php echo $question; ?></h1>
-         
-    <textarea name="textarea" rows="5" cols="40"></textarea>
-        <br><br>
-        <input type="submit" value="Submit">
-    </form>
-    <?php
+if ($questionType == 1) {
+  ?>
+  <form method="post" action="">
+    <h1><?php echo "Please Summit anser forr your questionn"; ?></h1>
+    <input type="hidden" name="questionId" value="<?php echo $questionId; ?>">
+    <input type="text" name="optionName" value="True">
+    <input type="text" name="optionName2" value="False">
+    <br><br>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+  <?php
 }
 
-
-
+mysqli_close($conn); // added to close database connection
 ?>
