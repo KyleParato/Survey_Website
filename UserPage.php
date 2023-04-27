@@ -14,10 +14,11 @@ if(!$conn) {
 
 }
 
+$userID = $_GET['id'];
 
 if (isset($_POST['Lognin'])) {
 
-    header("Location: AllSurvey.php?id=$survey_id");
+    header("Location: AllSurvey.php?userID=$userID");
 
 }
 
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) {
     $endDateTime = mysqli_real_escape_string($conn, $_POST["EndDateTime"]); 
 
     // Get user ID from URL
-    $userID = $_GET['id'];
+ 
 
     // Construct SQL query
     $sql = "INSERT INTO Survey(SurveyName, SurveyCode, StartDateTime, EndDateTime, UserID) 

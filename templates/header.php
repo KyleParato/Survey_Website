@@ -26,7 +26,7 @@
  <div class = "container">
     <a  href = "index.php" class = "brand-logo brand-text" >Survery </a>
     <ul id = "nav-mobile" class = "right hide-on-small-and-down" >
-    <li ><a href = "add.php" class = "btn brand z-depth-0 ">Add survey</a> </li>
+  
 </ul>
 
 
