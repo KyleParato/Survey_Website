@@ -7,6 +7,7 @@
     if (isset($_POST['submit'])) {
         $survey_id = $_POST['survey_id'];
         header("Location: AllQuestion.php?userID=$userID&survey_id=$survey_id");
+       
     }
 
     if(!$conn) {

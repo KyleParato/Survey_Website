@@ -2,28 +2,42 @@
 $userID = $_GET['userID'];
 $survey_id = $_GET['survey_id'];
 
-?>
-
-<?php
-$userID = $_GET['userID'];
-
-
 $conn = mysqli_connect('localhost', 'shaun', '1234', 'survey');
 
-
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
 
 if (isset($_POST['submit'])) {
+   // $userID = $_GET['userID'];
+ $userID = 52;
+
     $survey_id = $_POST['survey_id'];
     $question_id = $_POST['question_id'];
     $option_name = $_POST['option_name'];
-    echo "Selected option: $option_name";
-    echo "question_id: $question_id";
+
+
+    echo $question_id;
+    echo $option_name;
+    echo $userID;
+    
+    // Check if all required fields are set
+    if (empty($question_id) || empty($option_name) || empty($userID)) {
+        echo "All fields are required!";
+        exit();
+    }
+    
     // Do something with the selected option and question ID...
     
-    // Redirect to the same page after processing the form
-   // header("Location: AllQuestion.php?userID=$userID&survey_id=$survey_id");
+    $sql = "INSERT INTO Response(Answer, UserID, QuestionID) VALUES ('$option_name', '$userID', '$question_id')";
+    if(mysqli_query($conn, $sql)) {
+        echo "Survey created successfully!";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
     exit();
 }
+
 
 
 
