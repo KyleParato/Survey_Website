@@ -1,5 +1,9 @@
 <?php
+//$userID = $_GET['userID'];
 $userID = $_GET['userID'];
+
+
+//echo  "userIDDDDDDD: " . $userID ;
 $survey_id = $_GET['survey_id'];
 
 $conn = mysqli_connect('localhost', 'shaun', '1234', 'survey');
@@ -10,8 +14,8 @@ if (!$conn) {
 
 if (isset($_POST['submit'])) {
    // $userID = $_GET['userID'];
- $userID = 52;
 
+   $userIDD = $_POST['userID'];
     $survey_id = $_POST['survey_id'];
     $question_id = $_POST['question_id'];
     $option_name = $_POST['option_name'];
@@ -22,14 +26,14 @@ if (isset($_POST['submit'])) {
     echo $userID;
     
     // Check if all required fields are set
-    if (empty($question_id) || empty($option_name) || empty($userID)) {
+    if (empty($question_id) || empty($option_name) || empty($userIDD)) {
         echo "All fields are required!";
         exit();
     }
     
     // Do something with the selected option and question ID...
     
-    $sql = "INSERT INTO Response(Answer, UserID, QuestionID) VALUES ('$option_name', '$userID', '$question_id')";
+    $sql = "INSERT INTO Response(Answer, UserID, QuestionID) VALUES ('$option_name', '$userIDD', '$question_id')";
     if(mysqli_query($conn, $sql)) {
         echo "Survey created successfully!";
     } else {
@@ -85,6 +89,8 @@ if (!$conn) {
                                 <form class="form" method="POST" action="AllQuestion.php">
                                 <input type="hidden" name="question_id" value="<?php echo $question['QuestionID']; ?>">
                                 <input type="hidden" name="option_name" value="<?php echo $option['OptionName']; ?>">
+                                <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+
                                 <button type="submit" name="submit"><?php echo htmlspecialchars($option['OptionName']); ?></button>
                                 </form>
                                 <?php } ?>

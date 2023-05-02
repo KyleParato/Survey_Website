@@ -6,7 +6,15 @@
 
     if (isset($_POST['submit'])) {
         $survey_id = $_POST['survey_id'];
-        header("Location: AllQuestion.php?userID=$userID&survey_id=$survey_id");
+        $userIDD = $_POST['userID'];
+
+       // $userID = $_GET['userID'];
+        header("Location: AllQuestion.php?userID=$userIDD&survey_id=$survey_id");
+
+
+
+
+//        header("Location: AllSurvey.php?userID=$userID");
        
     }
 
@@ -37,6 +45,8 @@
                         <form class="form" method="POST">
                            
                             <input type="hidden" name="survey_id" value="<?php echo $survey['SurveyID']; ?>">
+                            <input type="hidden" name="userID" value="<?php echo $userID; ?>">
+
                            
                             <input type="submit" name="submit" value="Participate">
                         
