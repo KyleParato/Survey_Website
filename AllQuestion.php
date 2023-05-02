@@ -1,21 +1,34 @@
 <?php
 $userID = $_GET['userID'];
 $survey_id = $_GET['survey_id'];
-echo "UserID: $userID<br>";
-echo "SurveyID: $survey_id";
+
 ?>
 
 <?php
 $userID = $_GET['userID'];
-echo  $userID;
-$QuestionIDD;
+
 
 $conn = mysqli_connect('localhost', 'shaun', '1234', 'survey');
 
+
+
 if (isset($_POST['submit'])) {
     $survey_id = $_POST['survey_id'];
-    header("Location: AllQuestion.php?userID=$userID&survey_id=$survey_id");
+    $question_id = $_POST['question_id'];
+    $option_name = $_POST['option_name'];
+    echo "Selected option: $option_name";
+    // Do something with the selected option and question ID...
+    
+    // Redirect to the same page after processing the form
+   // header("Location: AllQuestion.php?userID=$userID&survey_id=$survey_id");
+    exit();
 }
+
+
+
+
+
+
 
 if (!$conn) {
     echo 'Connection error: ' . mysqli_connect_error();
@@ -50,24 +63,28 @@ if (!$conn) {
                         <h6><?php echo htmlspecialchars($question['QuestionName']); ?></h6>
                         <h6><?php echo htmlspecialchars($question['QuestionID']); ?></h6>
 
-                        <?php foreach ($question['options'] as $option) { ?>
-                            
-                            
-                            <p><?php echo htmlspecialchars($option['OptionName']); 
-                           
-                        
 
-                            
 
-                            
-                            ?></p>
-                        <?php } ?>
+
+                                <?php foreach ($question['options'] as $option) { ?>
+                                <form class="form" method="POST" action="AllQuestion.php">
+                                <input type="hidden" name="question_id" value="<?php echo $question['QuestionID']; ?>">
+                                <input type="hidden" name="option_name" value="<?php echo $option['OptionName']; ?>">
+                                <button type="submit" name="submit"><?php echo htmlspecialchars($option['OptionName']); ?></button>
+                                </form>
+                                <?php } ?>
+
+
+
+
+
+
+
+
+
                     </div>
                     <div class="card-action right-align">
-                        <form class="form" method="POST">
-                            <input type="hidden" name="survey_id" value="<?php echo $survey_id; ?>">
-                            <input type="submit" name="submit" value="Participate">
-                        </form>
+                       
                     </div>
                 </div>
             </div>
