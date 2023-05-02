@@ -17,6 +17,7 @@ if (isset($_POST['submit'])) {
     $question_id = $_POST['question_id'];
     $option_name = $_POST['option_name'];
     echo "Selected option: $option_name";
+    echo "question_id: $question_id";
     // Do something with the selected option and question ID...
     
     // Redirect to the same page after processing the form
