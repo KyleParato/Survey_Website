@@ -83,7 +83,7 @@ if (isset($_POST['submit'])) {
         <input type="text" name="QuestionName">
         <label>Description</label>
         <input type="text" name="Description">
-        <label>Type 1 = true or false  || Type 2 = optional || Type 3 = fill up</label>
+        <label>(Type 1 = true,false)    OR    (Type 2 = optional)</label>
         <input type="text" name="Type">
         <div class="center">
             <input type="submit" name="submit" value="Create">

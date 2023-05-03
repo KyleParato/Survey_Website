@@ -19,60 +19,7 @@ if (isset($_POST['Lognin'])) {
 
 
 if (isset($_POST['submit'])){
-   // echo $_POST["email"];
-   // echo $_POST["title"];
-
-
-if(empty($_POST["name"])) {
-   echo "please fill name </br>";
-}else {
-   echo "thank you for your email address";
-}
-
-////////////////////////////////////////////////////////////////
-
-
-if(empty($_POST["lastname"])) {
-   echo "please type lastname </br>";
-}else {
-   echo htmlspecialchars($_POST["lastname"]);
-
-
-}
-
-////////////////////////////////////////////////////////////////
-
-
-if(empty($_POST["phone"])) {
-   echo "please type phone </br>";
-}else {
-   echo htmlspecialchars($_POST["lastname"]);
-
-
-}
-
-
-
-
-////////////////////////////////////////////////////////////////
-
-if(empty($_POST["email"])) {
-   echo "type your email  </br>";
-}else {
-   echo htmlspecialchars($_POST["email"]);
-
-
-}
-
-/////////////////////////////////////
-
-if(empty($_POST["passworld"])) {
-   echo "type your passworld  </br>";
-}else {
-   echo htmlspecialchars($_POST["passworld"]);
-
-
-}
+  
 
 
 $name = mysqli_real_escape_string($conn, $_POST["name"]); 

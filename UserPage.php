@@ -14,6 +14,16 @@ if(!$conn) {
 
 }
 
+
+if (isset($_POST['delete'])) {
+    $userID = $_POST['userID'];
+
+    header("Location: DeleteSurvey.php?userID=$userID");
+
+}
+
+
+
 $userID = $_GET['id'];
 echo  $userID;
 
@@ -84,9 +94,11 @@ if (isset($_POST['submit'])) {
         <input type="text" name="StartDate">
         <label>EndDateTime</label>
         <input type="text" name="EndDateTime">
+        <input type="hidden" name="userID" value="<?php echo $userID; ?>">
         <div class="center">
             <input type="submit" name="submit" value="Create">
             <input type="submit" name="Lognin" value="See All Survey">
+            <input type="submit" name="delete" value=" Your Survey">
         </div>
     </form>
 </body>
