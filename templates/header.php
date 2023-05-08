@@ -1,6 +1,6 @@
 
 <head>
-
+<link href="style.css" rel="stylesheet" type="text/css" />
 <title>  Survery </title>
 
     <!-- Compiled and minified CSS -->
@@ -8,29 +8,38 @@
 
 <style type="text/css"> 
 
-.brand{
-    background: #cbb09c  !important;
+nav{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    background-color: #03739c;
+    overflow: hidden;
 }
-.brand-text {
-    color :  #cbb09c  !important;
 
+.header {
+    padding: 40px; 
+    text-align: center; /* center the text */
+    background: #0081af; /* blue background */
+    color: #ead2ac; /* yellow text color */
 }
-
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #d3d3d3
+}
 
 </style>
 
+<div class="header">
+  <h1>Magic Survey</h1>
+  <p>For all of your survey needs</p>
+</div>
+
 </head>
-<body   class = "grey lighten-4">
-    <nav class = "white z-depth-0"> 
-
- <div class = "container">
-    <a  href = "index.php" class = "brand-logo brand-text" >Survery </a>
-    <ul id = "nav-mobile" class = "right hide-on-small-and-down" >
-  
-</ul>
-
-
- </div>
-
-
-    </nav>
+<body   class = "body">
+<nav>
+    <a href="DeleteSurvey.php">Your Surveys</a>
+    <a href="AllSurvey.php">All Surveys</a>
+    <a href="CreateSurvey.php">Create Survey</a>
+    <a href="LogOut.php">Log Out</a>
+</nav>
+</body>

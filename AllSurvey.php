@@ -1,27 +1,24 @@
 <?php
-    $userID = $_GET['userID'];
-    echo  $userID;
-
-    $conn = mysqli_connect('localhost','shaun', '1234', 'survey');
-
-    if (isset($_POST['submit'])) {
+    $v = session_start();
+    $conn = mysqli_connect('localhost','root', '', 'Survey');
+    if (isset($_POST['Participate'])) {
         $survey_id = $_POST['survey_id'];
-        $userIDD = $_POST['userID'];
-
+        $userID = $_SESSION["User_Email"];
+        $_SESSION['SCode'] = $survey_id;
        // $userID = $_GET['userID'];
-        header("Location: AllQuestion.php?userID=$userIDD&survey_id=$survey_id");
+        $sql = "insert into response (user_email,survey_code,response_ts) values
+                ('$userID',$survey_id,current_timestamp);";
+        $r = (mysqli_query($conn,$sql));
+        header("Location: AllQuestion.php");
+        exit();
 
-
-
-
-//        header("Location: AllSurvey.php?userID=$userID");
        
     }
 
     if(!$conn) {
         echo 'Connection error: ' . mysqli_connect_error();
     } else {
-        $sql = "SELECT SurveyName, SurveyID FROM survey";
+        $sql = "SELECT * FROM survey";
         $result = mysqli_query($conn, $sql);
         $allSurvey = mysqli_fetch_all($result, MYSQLI_ASSOC);
         mysqli_free_result($result);
@@ -39,16 +36,15 @@
             <div class="col s6 md3">
                 <div class="card z-depth-0">
                     <div class="card-content center">
-                        <h6><?php echo htmlspecialchars($survey['SurveyName']); ?></h6>
+                        <h6><?php echo htmlspecialchars($survey['Survey_Name']); ?></h6>
                     </div>
                     <div class="card-action right-align">
                         <form class="form" method="POST">
-                           
-                            <input type="hidden" name="survey_id" value="<?php echo $survey['SurveyID']; ?>">
+                            <input type="hidden" name="survey_id" value="<?php echo $survey['Survey_Code']; ?>">
                             <input type="hidden" name="userID" value="<?php echo $userID; ?>">
 
                            
-                            <input type="submit" name="submit" value="Participate">
+                            <input type="submit" name="Participate" value="Participate">
                         
                         
                         </form>

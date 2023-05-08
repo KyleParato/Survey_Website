@@ -1,50 +1,43 @@
 
-<<?php
-$v = session_start();
-//echo $v;
+<?php
+
 $conn = mysqli_connect('localhost','root', '', 'Survey');
 
+session_start();
 
 if(!$conn) {
      echo 'Connection error: ' . mysqli_connect_error();
 }else {
-   echo 'Successfully connected';
+   //echo 'Successfully connected';
 }
 
-if (isset($_POST['CreateAccount'])) {
-   header('Location: CreateUser.php');
+
+if (isset($_POST['Login'])) {
+   header('Location: login.php');
    exit;
 }
 
 
-if (isset($_POST['Login'])){
-  
+if (isset($_POST['SignUp'])){
+
+   $name = mysqli_real_escape_string($conn, $_POST["name"]); 
+   $lastname = mysqli_real_escape_string($conn, $_POST["lastname"]); 
+   $phone = mysqli_real_escape_string($conn, $_POST["phone"]); 
    $email = mysqli_real_escape_string($conn, $_POST["email"]); 
-   $password = mysqli_real_escape_string($conn, $_POST["passworld"]); 
+   $passworld = mysqli_real_escape_string($conn, $_POST["passworld"]); 
 
-
-   $sql = "SELECT * FROM Users WHERE Email = '$email'";
-   $result = mysqli_query($conn, $sql);
-
-   if (mysqli_num_rows($result) > 0) {
-      $user = mysqli_fetch_assoc($result);
-      if ($password == $user['User_Password']) {
-         $_SESSION["User_Email"] = $email;
-         header('Location: DeleteSurvey.php');
-         exit();
-      }
-      else{
-         $user['User_Password'];
-         header("Refresh:0");
-      }
+   $sql = "INSERT INTO users(FName,LName,Email,User_Password,Phone_number,user_ts) VALUES 
+                        ('$name', '$lastname', '$email', '$passworld','$phone',current_timestamp);";
+   if(mysqli_query($conn,$sql)){
+      $_SESSION["User_Email"] = $email;
+      header("Location: DeleteSurvey.php");
+      exit();
    }
-   else{
-      $user['User_Password'];
-      header("Refresh:0");
+   else {
+      echo 'query error:'. mysqli_error($conn);
    }
 }
 ?>
-
 
 
 
@@ -63,9 +56,16 @@ if (isset($_POST['Login'])){
 
 
 <body>
-<form  class="form" action = "index.php" method = "POST">
+<form  class="form" action = "CreateUser.php" method = "POST">
 
-<h1>Login</h1>
+<h1>Create Account</h1>
+
+
+<label>First Name </label>
+<input type="text" name="name">
+
+<label>Last Name</label>
+<input type="text" name="lastname">
 
 <label>Email</label>
 <input type="text" name="email">
@@ -73,13 +73,16 @@ if (isset($_POST['Login'])){
 <label>Password</label>
 <input type="text" name="passworld">
 
+<label>PhoneNumber</label>
+<input type="text" name="phone">
 
 
 
 <div class="center">
 
+<input type="submit" name="SignUp" value = "Sign Up">
 <input type="submit" name="Login"  value = "Login">
-<input type="submit" name="CreateAccount" value = "Create Account">
+
 
 
 </div>

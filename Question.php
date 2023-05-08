@@ -1,7 +1,7 @@
 <?php
+$v = session_start();
 // Include database credentials
-echo 'Welcome: ' . $_GET['name'];
-$conn = mysqli_connect('localhost','shaun', '1234', 'survey');
+$conn = mysqli_connect('localhost','root', '', 'Survey');
 
 if(!$conn) {
      echo 'Connection error: ' . mysqli_connect_error();
@@ -14,60 +14,41 @@ if(!$conn) {
 
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['Create'])) {
     $questionName = mysqli_real_escape_string($conn, $_POST["QuestionName"]); 
     $description = mysqli_real_escape_string($conn, $_POST["Description"]); 
-    $type = mysqli_real_escape_string($conn, $_POST["Type"]); 
-    $surveyID = $_GET['id'];
+    $Qtype = mysqli_real_escape_string($conn, $_POST["QType"]); 
+    $surveyID = $_SESSION["SCode"];
 
     // Construct SQL query
-    $sql = "INSERT INTO Question(QuestionName, Descriptionn, Typee, SurveyID) 
-            VALUES('$questionName','$description','$type','$surveyID')";
+    $sql = "INSERT INTO Question(QName, QDescription, QType, Survey_Code,question_ts) 
+            VALUES('$questionName','$description','$Qtype','$surveyID',current_timestamp);";
 
     // Execute query
     if(mysqli_query($conn, $sql)) {
-        echo "Question created successfully!";
 
-        $questionID = mysqli_insert_id($conn);
+        //$questionID = mysqli_insert_id($conn);
 
-        $sql = "SELECT * FROM Question WHERE  QuestionName = '$questionName'";
+        $sql = "SELECT * FROM Question WHERE  QName = '$questionName' and Survey_Code = $surveyID;";
         $result = mysqli_query($conn, $sql);
-        $Question_Id_type = mysqli_fetch_assoc($result);
- 
+        $Question = mysqli_fetch_assoc($result);
      
-        $Question_Id = $Question_Id_type['QuestionID'];
-        $Question_type =  $Question_Id_type['Typee'];
-        $QuestionName =  $Question_Id_type['QuestionName'];
+        $_SESSION["QID"] =    $Question['Question_ID'];
+        $_SESSION["QType"] =  $Question['QType'];
+        // $QuestionName =  $Question_Id_type['QuestionName'];
                       // Redirect to a new page with the user ID and name as parameters
                      //header("Location: UserPage.php?id=$user_id&name=$user_name");
-        if ($type == $Question_Id_type['Typee']) {
- 
-         header("Location: AnswerOption.php?id=$Question_Id&type=$Question_type&question=$QuestionName");
-        // header("Location: AnswerOption.php?id=$questionID");
-
- 
-        }
-
-
-
-
-
-
-
-
-        // Redirect to a new page that displays the questions for the survey
-      //  header("Location: AnswerOption.php?id=$surveyID");
-
-
-
-
-
-
-
+        header("Location: AnswerOption.php");
+        exit();
 
     } else {
         echo 'Query error: ' . mysqli_error($conn);
     }
+}
+
+if(isset($_POST['Finish'])){
+    header("Location: DeleteSurvey.php");
+    exit();
 }
 ?>
 
@@ -75,19 +56,27 @@ if (isset($_POST['submit'])) {
 <html>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <div class="header">
+        <h1>Magic Survey</h1>
+        <p>For all of your survey needs</p>
+    </div>
 </head>
 <body>
-    <form class="form" action="Question.php?id=<?php echo $_GET['id']; ?>" method="POST">
+    <form class="form" action="Question.php" method="POST">
         <h1>Create Question</h1>
         <label>Question Name </label>
         <input type="text" name="QuestionName">
         <label>Description</label>
         <input type="text" name="Description">
-        <label>(Type 1 = true,false)    OR    (Type 2 = optional)</label>
-        <input type="text" name="Type">
-        <div class="center">
-            <input type="submit" name="submit" value="Create">
+        <label>Choose A Question Type</label>
+        <div style="display:flex; flex-direction: row;align-items: center">
+            <input type="radio" name="QType" value="T/F"> 
+            <label for="T/F">True/False</label><br>
+            <input type="radio" name="QType" value="MC">
+            <label for="MC">Multiple Choice</label><br>
         </div>
+        <input type=submit name="Create" value = "Create">
+        <input type=submit name="Finish" value = "Finish">
     </form>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect('localhost', 'shaun', '1234', 'Survey');
+$conn = mysqli_connect('localhost','root', '', 'Survey');
 
 if (!$conn) {
     echo 'Connection error: ' . mysqli_connect_error();
@@ -93,6 +93,10 @@ if (!$conn) {
 
 <head>
 <link href="style.css" rel="stylesheet" type="text/css" />
+<div class="header">
+  <h1>Magic Survey</h1>
+  <p>For all of your survey needs</p>
+</div>
 </head>
 
 
@@ -101,7 +105,7 @@ if (!$conn) {
 
 <form  class="form" action = "Login.php" method = "POST">
 
-<h1>Sign Up</h1>
+<h1>Login</h1>
 
 
 
@@ -116,7 +120,7 @@ if (!$conn) {
 
 
 <div class="center">
-<input type="submit" name="submit" value = "loging">
+<input type="submit" name="submit" value = "login">
 </div>
 
 
