@@ -37,6 +37,11 @@ if (isset($_POST['SignUp'])){
       echo 'query error:'. mysqli_error($conn);
    }
 }
+
+if (isset($_POST['Back'])) {
+   header('Location: index.php');
+   exit;
+}
 ?>
 
 
@@ -83,7 +88,10 @@ if (isset($_POST['SignUp'])){
 <input type="submit" name="SignUp" value = "Sign Up">
 <input type="submit" name="Login"  value = "Login">
 
+<!-- Testing a back button to return to index.php -->
+<input type="submit" name="Back" value = "Back">
 
+</script>
 
 </div>
 
