@@ -83,7 +83,7 @@ insert into question (QName,QDescription,QType,Survey_Code,question_ts) values
 insert into question_option (qoption, qorder,question_id,qoption_ts) values
 	("True",1,1,current_timestamp),("False",2,1,current_timestamp),
     ("Issac Newton",1,2,current_timestamp),("Bob",2,2,current_timestamp),("Dave",3,2,current_timestamp),("Bach",4,2,current_timestamp),
-    ("Pizza",1,2,current_timestamp),("Tacos",2,2,current_timestamp),("Salad",3,2,current_timestamp);
+    ("Pizza",1,3,current_timestamp),("Tacos",2,3,current_timestamp),("Salad",3,3,current_timestamp);
 insert into response (user_email,survey_code,response_ts) values
 	("User1@Email.com",1,current_timestamp),("User2@Email.com",1,current_timestamp),
     ("User1@Email.com",2,current_timestamp),("User2@Email.com",2,current_timestamp);
