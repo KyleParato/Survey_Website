@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
 <?php include("templates/header.php")?>
 <div class=center>
 <form method="post" action="AnswerOption.php" method="POST">
-    <h1>Enter Options<?phpecho $_SESSION["User_Email"];?></h1>
+    <h1>Enter Options<?php echo $_SESSION["User_Email"]; ?></h1>
     <label>Option 1</label>
     <input type="text" name="optionName" >
     <label>Option 2</label>
